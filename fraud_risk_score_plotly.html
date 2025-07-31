@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div id="fraudRiskChart" style="width:100%;max-width:900px;height:500px;"></div>
+
+  <script>
+    // Example data
+    const sessionTime = [...Array(30).keys()].map(i => i + 1); // 1 to 30 minutes
+    const fraudRisk = sessionTime.map(t => 
+      Math.min(1, 0.2 + 0.02 * t + (Math.random() - 0.5) * 0.1)
+    );
+
+    const trace = {
+      x: sessionTime,
+      y: fraudRisk,
+      mode: 'lines+markers',
+      name: 'Fraud Risk Score',
+      line: { color: 'red', width: 2 },
+      marker: { size: 6 }
+    };
+
+    const layout = {
+      title: 'Real-time Fraud Risk Score vs. User Session Time',
+      xaxis: { title: 'Session Time (minutes)' },
+      yaxis: { title: 'Fraud Risk Score (0 = Low, 1 = High)', range: [0, 1] }
+    };
+
+    Plotly.newPlot('fraudRiskChart', [trace], layout);
+  </script>
+</body>
+</html>
